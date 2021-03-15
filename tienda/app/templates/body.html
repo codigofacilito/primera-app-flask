@@ -1,0 +1,10 @@
+{% extends './base.html' %}
+
+{% block body %}
+{% include './nav.html' %}
+<div class="container py-3">
+    {% block container %}
+    {% endblock %}
+</div>
+
+{% endblock %}

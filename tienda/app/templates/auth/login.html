@@ -1,0 +1,53 @@
+{% extends './base.html' %}
+
+{% block title %}Inicio de Sesi&oacute;n{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
+{% endblock %}
+
+{% block body %}
+<form class="form-signin" action="/login" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <img class="mb-4" src="{{ url_for('static', filename='img/flask.svg')}}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Inicio de Sesi&oacute;n</h1>
+    <label for="usuario" class="visually-hidden">Usuario</label>
+    <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuario" minlength="6"
+        maxlength="20" required autofocus>
+    <br />
+    <label for="password" class="visually-hidden">Password</label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password" minlength="6"
+        required>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar sesi&oacute;n</button>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+
+    {% if messages %}
+    <br />
+    {% for category, message in messages %}
+    {% if category == 'warning' %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong style='font-size: 14px;'>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong style='font-size: 14px;'>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% endwith %}
+    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+</form>
+
+{% block customJS %}
+<script src="{{ url_for('static', filename='js/login.js')}}"></script>
+{% endblock %}
+
+{% endblock %}
